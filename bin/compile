@@ -184,10 +184,10 @@ then
   if [ ! -f $BUILD_DIR/bin/test-setup.sh ]; then
     log "Creating $BUILD_DIR/bin/test-setup.sh ..."
      echo "# Log testing org
-sfdx force:org:display -u $TARGET_SCRATCH_ORG_ALIAS" > test-setup.sh
+sfdx force:org:display -u $TARGET_SCRATCH_ORG_ALIAS" > $BUILD_DIR/bin/test-setup.sh
 if [ "$install_lightning_testing_service" == "true" ];
 then
-echo "sfdx force:lightning:test:install -u $TARGET_SCRATCH_ORG_ALIAS" >> test-setup.sh
+echo "sfdx force:lightning:test:install -u $TARGET_SCRATCH_ORG_ALIAS" >> $BUILD_DIR/bin/test-setup.sh
 fi
     chmod +x $BUILD_DIR/bin/test-setup.sh
     cat $BUILD_DIR/bin/test-setup.sh
