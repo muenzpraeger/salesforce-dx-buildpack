@@ -60,3 +60,18 @@ debug() {
     echo "       [DEBUG] $*"
   fi
 }
+
+install_jdk() {
+  # download the buildpack
+  echo "Downloading Java buildpack"
+  JVM_COMMON_BUILDPACK=${JVM_COMMON_BUILDPACK:-https://codon-buildpacks.s3.amazonaws.com/buildpacks/heroku/jvm-common.tgz}
+  mkdir -p /tmp/jvm-common
+  curl --silent --location $JVM_COMMON_BUILDPACK | tar xzm -C /tmp/jvm-common --strip-components=1
+  . /tmp/jvm-common/bin/util
+  . /tmp/jvm-common/bin/java
+
+  # install JDK
+  echo "Installing Java"
+  javaVersion=$(detect_java_version ${BUILD_DIR})
+  install_java ${BUILD_DIR} ${javaVersion}
+}
